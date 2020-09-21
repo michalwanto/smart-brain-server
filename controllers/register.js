@@ -25,7 +25,8 @@ const handleRegister = (req, res, bcrypt, db) => {
           .then((output) => res.json(output[0]));
       })
       .then(trx.commit)
-      .then(trx.rollback);
+      .then(trx.rollback)
+      .catch((err) => res.json(`failed to access database`));
   });
 };
 
