@@ -1,7 +1,9 @@
 const handleRegister = (req, res, bcrypt, db) => {
   const { name, passwords, email } = req.body;
   const hash = bcrypt.hashSync(passwords);
+
   if (!name || !passwords || !email) {
+    console.log(name, passwords, email);
     return res
       .status(400)
       .json("Please Make Sure You Filled Up the Credentials");
