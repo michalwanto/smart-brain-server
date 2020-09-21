@@ -27,7 +27,7 @@ const db = knex({
 });
 
 app.get("/", (req, res) => {
-  res.json(database);
+  res.json("succesfully connect the server");
 });
 
 app.post("/signin", (req, res) => {
@@ -50,6 +50,6 @@ app.post("/register", (req, res) => {
   register.handleRegister(req, res, bcrypt, db);
 });
 
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log(`server is running on port ${process.env.PORT} `);
 });
