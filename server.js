@@ -42,7 +42,7 @@ app.post("/imageUrl", (req, res) => {
 });
 
 app.post("/register", (req, res) => {
-  register.handleRegister(req, res, bcrypt, db);
+  register.handleRegister(req, res, bcrypt);
 });
 
 app.listen(process.env.PORT || 3000, () => {
