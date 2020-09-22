@@ -6,6 +6,7 @@ const handleRegister = (req, res, bcrypt, db) => {
       .json("Please Make Sure You Filled Up the Credentials");
   }
   const hash = bcrypt.hashSync(passwords);
+  console.log(db);
   db.transaction((trx) => {
     trx("login")
       .insert({
@@ -28,7 +29,7 @@ const handleRegister = (req, res, bcrypt, db) => {
       })
       .then(trx.commit)
       .then(trx.rollback);
-  }).catch((err) => res.json(`failed to access database`));
+  }).catch((err) => res.status(400).json(`failed to access database`));
 };
 
 module.exports = {
