@@ -22,7 +22,8 @@ const handleRegister = (req, res, bcrypt, db) => {
             joined: new Date(),
           })
           .returning("*")
-          .then((output) => res.json(output[0]));
+          .then((output) => res.json(output[0]))
+          .catch((err) => res.json("couldnt connec to users database"));
       })
       .then(trx.commit)
       .then(trx.rollback)

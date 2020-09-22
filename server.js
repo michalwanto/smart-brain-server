@@ -21,7 +21,7 @@ const db = knex({
   ssl: {
     rejectUnauthorized: false,
   },
-}).catch((err) => res.json("couldnt connec to database"));
+});
 
 app.get("/", (req, res) => {
   res.json("succesfully connect the server");
