@@ -7,7 +7,9 @@ const handleRegister = (req, res, bcrypt, db) => {
   }
   const hash = bcrypt.hashSync(passwords);
   if (name) {
-    return res.status(200).json(`the data is ${db}`);
+    return db.transaction((trx) =>
+      trx("login").then((output) => res.json(output))
+    );
   }
   db.transaction((trx) => {
     trx("login")
