@@ -12,6 +12,7 @@ const handleRegister = (req, res, bcrypt, db) => {
         hash: hash,
         email: email,
       })
+      .catch((err) => res.json(`failed to access login`))
       .returning("email")
       .then((loginEmail) => {
         return trx("users")
@@ -21,7 +22,8 @@ const handleRegister = (req, res, bcrypt, db) => {
             joined: new Date(),
           })
           .returning("*")
-          .then((output) => res.json(output[0]));
+          .then((output) => res.json(output[0]))
+          .catch((err) => res.json(`failed to access users`));
       })
       .then(trx.commit)
       .then(trx.rollback);
