@@ -12,6 +12,7 @@ const handleRegister = (req, res, bcrypt, db) => {
         hash: hash,
         email: email,
       })
+      .then((response) => res.json("success logged in"))
       .catch((err) => res.json(`failed to access login`))
       .returning("email")
       .then((loginEmail) => {
