@@ -6,7 +6,6 @@ const handleRegister = (req, res, bcrypt, db) => {
       .json("Please Make Sure You Filled Up the Credentials");
   }
   const hash = bcrypt.hashSync(passwords);
-  res.send(db);
   res.json(db);
   db.transaction((trx) => {
     trx("login")
