@@ -17,8 +17,10 @@ app.use(cors());
 
 const db = knex({
   client: "pg",
-  connectionString: process.env.DATABASE_URL,
-  ssl: true,
+  connection: {
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  },
 });
 
 app.get("/", (req, res) => {
@@ -42,7 +44,7 @@ app.post("/imageUrl", (req, res) => {
 });
 
 app.post("/register", (req, res) => {
-  register.handleRegister(req, res, bcrypt, db);
+  register.handleRegister(req, res, bcrypt, dbb);
 });
 
 app.listen(process.env.PORT || 3000, () => {
