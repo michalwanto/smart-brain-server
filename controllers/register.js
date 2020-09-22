@@ -6,18 +6,7 @@ const handleRegister = (req, res, bcrypt, db) => {
       .json("Please Make Sure You Filled Up the Credentials");
   }
   const hash = bcrypt.hashSync(passwords);
-  if (name) {
-    return db.transaction((trx) =>
-      trx("login")
-        .returning("*")
-        .insert({
-          hash: hash,
-          email: email,
-        })
-        .then((output) => res.json(output))
-        .catch((err) => res.json("error getting the login data"))
-    );
-  }
+
   db.transaction((trx) => {
     trx("login")
       .insert({
