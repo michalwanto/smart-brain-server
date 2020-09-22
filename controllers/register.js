@@ -9,22 +9,19 @@ const handleRegister = (req, res, bcrypt, db) => {
 
   db.transaction((trx) => {
     trx("login")
-      .returning("*")
       .insert({
         hash: hash,
         email: email,
       })
-      .then((response) => res.json("success logged in"))
-      .catch((err) => res.json(`failed to access login`))
       .returning("email")
       .then((loginEmail) => {
         return trx("users")
-          .returning("*")
           .insert({
             name: name,
             email: loginEmail[0],
             joined: new Date(),
           })
+          .returning("*")
           .then((output) => res.json(output[0]))
           .catch((err) => res.json(`failed to access users`));
       })
