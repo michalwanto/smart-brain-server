@@ -1,12 +1,11 @@
 const handleRegister = (req, res, bcrypt, db) => {
   const { name, passwords, email } = req.body;
-  const hash = bcrypt.hashSync(passwords);
   if (!name || !passwords || !email) {
-    console.log(name, passwords, email);
     return res
       .status(400)
       .json("Please Make Sure You Filled Up the Credentials");
   }
+  const hash = bcrypt.hashSync(passwords);
   db.transaction((trx) => {
     trx("login")
       .insert({
@@ -22,13 +21,11 @@ const handleRegister = (req, res, bcrypt, db) => {
             joined: new Date(),
           })
           .returning("*")
-          .then((output) => res.json(output[0]))
-          .catch((err) => res.json("couldnt connec to users database"));
+          .then((output) => res.json(output[0]));
       })
       .then(trx.commit)
-      .then(trx.rollback)
-      .catch((err) => res.json(`failed to access database`));
-  });
+      .then(trx.rollback);
+  }).catch((err) => res.json(`failed to access database`));
 };
 
 module.exports = {
